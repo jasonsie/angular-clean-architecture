@@ -19,7 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
         <mat-card-subtitle *ngIf="subtitle">{{ subtitle }}</mat-card-subtitle>
       </mat-card-header>
 
-      <img *ngIf="imageUrl" mat-card-image [src]="imageUrl" [alt]="imageAlt">
+      <img *ngIf="imageUrl" mat-card-image [src]="imageUrl" [alt]="imageAlt" />
 
       <mat-card-content>
         <ng-content></ng-content>
@@ -30,24 +30,6 @@ import { MatIconModule } from '@angular/material/icon';
       </mat-card-actions>
     </mat-card>
   `,
-  styles: [`
-    mat-card {
-      margin: 16px;
-      max-width: 100%;
-    }
-
-    .elevated {
-      box-shadow: 0 4px 8px rgba(0,0,0,0.12);
-    }
-
-    .compact {
-      margin: 8px;
-    }
-
-    .full-width {
-      margin: 16px 0;
-    }
-  `]
 })
 export class MaterialCardComponent {
   @Input() title?: string;
