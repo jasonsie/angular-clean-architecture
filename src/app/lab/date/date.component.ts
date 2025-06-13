@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -57,10 +57,9 @@ export class DateComponent implements OnInit {
 
   comparisonDate: Date = new Date();
 
-  constructor(
-    public dateService: DateService,
-    private snackBar: MatSnackBar
-  ) {}
+  // Injected services using inject() function
+  public readonly dateService = inject(DateService);
+  private readonly snackBar = inject(MatSnackBar);
 
   ngOnInit(): void {
     this.currentDate = this.dateService.getCurrentDate();
@@ -73,7 +72,7 @@ export class DateComponent implements OnInit {
     try {
       this.workingDate = this.dateService.addDays(this.workingDate, this.daysToAdd);
       this.showSuccessMessage(`Added ${this.daysToAdd} day(s)`);
-    } catch (error) {
+    } catch {
       this.showErrorMessage('Error adding days');
     }
   }
@@ -82,7 +81,7 @@ export class DateComponent implements OnInit {
     try {
       this.workingDate = this.dateService.subtractDays(this.workingDate, this.daysToAdd);
       this.showSuccessMessage(`Subtracted ${this.daysToAdd} day(s)`);
-    } catch (error) {
+    } catch {
       this.showErrorMessage('Error subtracting days');
     }
   }
@@ -91,7 +90,7 @@ export class DateComponent implements OnInit {
     try {
       this.workingDate = this.dateService.addMonths(this.workingDate, 1);
       this.showSuccessMessage('Added 1 month');
-    } catch (error) {
+    } catch {
       this.showErrorMessage('Error adding month');
     }
   }
@@ -100,7 +99,7 @@ export class DateComponent implements OnInit {
     try {
       this.workingDate = this.dateService.addYears(this.workingDate, 1);
       this.showSuccessMessage('Added 1 year');
-    } catch (error) {
+    } catch {
       this.showErrorMessage('Error adding year');
     }
   }

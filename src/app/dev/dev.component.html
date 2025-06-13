@@ -3,7 +3,7 @@
   <mat-card class="header-card">
     <mat-card-header>
       <mat-card-title>
-        <mat-icon>developer_mode</mat-icon>
+        <mat-icon aria-hidden="true">developer_mode</mat-icon>
         Development Dashboard
       </mat-card-title>
       <mat-card-subtitle>
@@ -39,11 +39,13 @@
         <button mat-raised-button
                 color="primary"
                 (click)="testApi()"
-                [disabled]="isLoadingApi$ | async">
-          <mat-icon *ngIf="!(isLoadingApi$ | async)">wifi_find</mat-icon>
+                [disabled]="isLoadingApi$ | async"
+                aria-label="Test API connection">
+          <mat-icon *ngIf="(isLoadingApi$ | async) === false" aria-hidden="true">wifi_find</mat-icon>
           <mat-progress-spinner *ngIf="isLoadingApi$ | async"
                                diameter="20"
-                               mode="indeterminate">
+                               mode="indeterminate"
+                               aria-label="Testing API connection">
           </mat-progress-spinner>
           {{ (isLoadingApi$ | async) ? 'Testing...' : 'Test API' }}
         </button>
@@ -62,16 +64,25 @@
       </mat-card-content>
 
       <mat-card-actions>
-        <button mat-button color="warn" (click)="clearLocalStorage()">
-          <mat-icon>delete_sweep</mat-icon>
+        <button mat-button
+                color="warn"
+                (click)="clearLocalStorage()"
+                aria-label="Clear local storage">
+          <mat-icon aria-hidden="true">delete_sweep</mat-icon>
           Clear Local
         </button>
-        <button mat-button color="warn" (click)="clearSessionStorage()">
-          <mat-icon>clear_all</mat-icon>
+        <button mat-button
+                color="warn"
+                (click)="clearSessionStorage()"
+                aria-label="Clear session storage">
+          <mat-icon aria-hidden="true">clear_all</mat-icon>
           Clear Session
         </button>
-        <button mat-stroked-button color="warn" (click)="clearStorage()">
-          <mat-icon>delete_forever</mat-icon>
+        <button mat-stroked-button
+                color="warn"
+                (click)="clearStorage()"
+                aria-label="Clear all storage">
+          <mat-icon aria-hidden="true">delete_forever</mat-icon>
           Clear All
         </button>
       </mat-card-actions>
@@ -89,8 +100,11 @@
       </mat-card-content>
 
       <mat-card-actions>
-        <button mat-raised-button color="accent" (click)="toggleTheme()">
-          <mat-icon>{{ (currentTheme$ | async) === 'light' ? 'dark_mode' : 'light_mode' }}</mat-icon>
+        <button mat-raised-button
+                color="accent"
+                (click)="toggleTheme()"
+                aria-label="Toggle application theme">
+          <mat-icon aria-hidden="true">{{ (currentTheme$ | async) === 'light' ? 'dark_mode' : 'light_mode' }}</mat-icon>
           Toggle Theme
         </button>
       </mat-card-actions>
@@ -101,16 +115,19 @@
       <mat-card-header>
         <mat-card-title>System Information</mat-card-title>
         <mat-card-subtitle>
-          <button mat-icon-button (click)="refreshSystemInfo()" matTooltip="Refresh">
-            <mat-icon>refresh</mat-icon>
+          <button mat-icon-button
+                  (click)="refreshSystemInfo()"
+                  matTooltip="Refresh system information"
+                  aria-label="Refresh system information">
+            <mat-icon aria-hidden="true">refresh</mat-icon>
           </button>
         </mat-card-subtitle>
       </mat-card-header>
 
       <mat-card-content *ngIf="systemInfo$ | async as systemInfo">
-        <mat-list>
+        <mat-list role="list">
           <mat-list-item>
-            <mat-icon matListItemIcon>access_time</mat-icon>
+            <mat-icon matListItemIcon aria-hidden="true">access_time</mat-icon>
             <div matListItemTitle>Timestamp</div>
             <div matListItemLine>{{ systemInfo.timestamp | date:'medium' }}</div>
           </mat-list-item>
@@ -118,7 +135,7 @@
           <mat-divider></mat-divider>
 
           <mat-list-item>
-            <mat-icon matListItemIcon>computer</mat-icon>
+            <mat-icon matListItemIcon aria-hidden="true">computer</mat-icon>
             <div matListItemTitle>Platform</div>
             <div matListItemLine>{{ systemInfo.platform }}</div>
           </mat-list-item>
@@ -126,7 +143,7 @@
           <mat-divider></mat-divider>
 
           <mat-list-item *ngIf="systemInfo.browser">
-            <mat-icon matListItemIcon>web</mat-icon>
+            <mat-icon matListItemIcon aria-hidden="true">web</mat-icon>
             <div matListItemTitle>Browser</div>
             <div matListItemLine>{{ systemInfo.browser.name }} {{ systemInfo.browser.version }}</div>
           </mat-list-item>
@@ -134,7 +151,7 @@
           <mat-divider></mat-divider>
 
           <mat-list-item *ngIf="systemInfo.browser">
-            <mat-icon matListItemIcon>language</mat-icon>
+            <mat-icon matListItemIcon aria-hidden="true">language</mat-icon>
             <div matListItemTitle>Language</div>
             <div matListItemLine>{{ systemInfo.browser.language }}</div>
           </mat-list-item>
@@ -142,7 +159,7 @@
           <mat-divider></mat-divider>
 
           <mat-list-item *ngIf="systemInfo.network">
-            <mat-icon matListItemIcon>{{ systemInfo.network.isOnline ? 'wifi' : 'wifi_off' }}</mat-icon>
+            <mat-icon matListItemIcon aria-hidden="true">{{ systemInfo.network.isOnline ? 'wifi' : 'wifi_off' }}</mat-icon>
             <div matListItemTitle>Network Status</div>
             <div matListItemLine>
               {{ systemInfo.network.isOnline ? 'Online' : 'Offline' }}
@@ -156,7 +173,7 @@
         <div *ngIf="browserFeatures$ | async as browserFeatures; else loadingFeatures" class="browser-features">
           <h4>Browser Features</h4>
           <mat-chip-set *ngIf="browserFeatures.length > 0">
-            <mat-chip *ngFor="let feature of browserFeatures" color="primary">
+            <mat-chip *ngFor="let feature of browserFeatures; trackBy: trackByFeature" color="primary">
               {{ feature }}
             </mat-chip>
           </mat-chip-set>

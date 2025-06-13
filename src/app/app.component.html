@@ -4,19 +4,28 @@
 
     <div class="spacer"></div>
 
-    <nav class="nav-buttons">
-      <button mat-button routerLink="/dev" routerLinkActive="active-link">
-        <mat-icon>developer_mode</mat-icon>
+    <nav class="nav-buttons" role="navigation" aria-label="Main navigation">
+      <button mat-button
+              routerLink="/dev"
+              routerLinkActive="active-link"
+              aria-label="Navigate to Development Tools">
+        <mat-icon aria-hidden="true">developer_mode</mat-icon>
         Dev Tools
       </button>
 
-      <button mat-button routerLink="/lab/date" routerLinkActive="active-link">
-        <mat-icon>date_range</mat-icon>
+      <button mat-button
+              routerLink="/lab/date"
+              routerLinkActive="active-link"
+              aria-label="Navigate to Date Laboratory">
+        <mat-icon aria-hidden="true">date_range</mat-icon>
         Date Lab
       </button>
 
-      <button mat-button routerLink="/lab/pipe" routerLinkActive="active-link">
-        <mat-icon>transform</mat-icon>
+      <button mat-button
+              routerLink="/lab/pipe"
+              routerLinkActive="active-link"
+              aria-label="Navigate to Pipe Laboratory">
+        <mat-icon aria-hidden="true">transform</mat-icon>
         Pipe Lab
       </button>
     </nav>
@@ -25,13 +34,14 @@
       <mat-slide-toggle
         [checked]="isDarkTheme"
         (change)="toggleTheme()"
-        [matTooltip]="'Toggle ' + (isDarkTheme ? 'light' : 'dark') + ' theme'">
-        <mat-icon>{{ isDarkTheme ? 'dark_mode' : 'light_mode' }}</mat-icon>
+        [matTooltip]="'Toggle ' + (isDarkTheme ? 'light' : 'dark') + ' theme'"
+        [attr.aria-label]="'Toggle ' + (isDarkTheme ? 'light' : 'dark') + ' theme'">
+        <mat-icon aria-hidden="true">{{ isDarkTheme ? 'dark_mode' : 'light_mode' }}</mat-icon>
       </mat-slide-toggle>
     </div>
   </mat-toolbar>
 
-  <main class="main-content">
+  <main class="main-content" role="main">
     <router-outlet></router-outlet>
   </main>
 </div>

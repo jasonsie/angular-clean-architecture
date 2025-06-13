@@ -18,42 +18,42 @@ export type ButtonColor = 'primary' | 'accent' | 'warn';
   template: `
     <ng-container [ngSwitch]="variant">
       <button *ngSwitchCase="'basic'" mat-button [color]="color" [disabled]="disabled"
-              [matTooltip]="tooltip" (click)="onClick()">
-        <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
+              [matTooltip]="tooltip" (click)="onClick()" [attr.aria-label]="tooltip">
+        <mat-icon *ngIf="icon" aria-hidden="true">{{ icon }}</mat-icon>
         <ng-content></ng-content>
       </button>
 
       <button *ngSwitchCase="'raised'" mat-raised-button [color]="color" [disabled]="disabled"
-              [matTooltip]="tooltip" (click)="onClick()">
-        <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
+              [matTooltip]="tooltip" (click)="onClick()" [attr.aria-label]="tooltip">
+        <mat-icon *ngIf="icon" aria-hidden="true">{{ icon }}</mat-icon>
         <ng-content></ng-content>
       </button>
 
       <button *ngSwitchCase="'stroked'" mat-stroked-button [color]="color" [disabled]="disabled"
-              [matTooltip]="tooltip" (click)="onClick()">
-        <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
+              [matTooltip]="tooltip" (click)="onClick()" [attr.aria-label]="tooltip">
+        <mat-icon *ngIf="icon" aria-hidden="true">{{ icon }}</mat-icon>
         <ng-content></ng-content>
       </button>
 
       <button *ngSwitchCase="'flat'" mat-flat-button [color]="color" [disabled]="disabled"
-              [matTooltip]="tooltip" (click)="onClick()">
-        <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
+              [matTooltip]="tooltip" (click)="onClick()" [attr.aria-label]="tooltip">
+        <mat-icon *ngIf="icon" aria-hidden="true">{{ icon }}</mat-icon>
         <ng-content></ng-content>
       </button>
 
       <button *ngSwitchCase="'icon'" mat-icon-button [color]="color" [disabled]="disabled"
-              [matTooltip]="tooltip" (click)="onClick()">
-        <mat-icon>{{ icon }}</mat-icon>
+              [matTooltip]="tooltip" (click)="onClick()" [attr.aria-label]="tooltip">
+        <mat-icon aria-hidden="true">{{ icon }}</mat-icon>
       </button>
 
       <button *ngSwitchCase="'fab'" mat-fab [color]="color" [disabled]="disabled"
-              [matTooltip]="tooltip" (click)="onClick()">
-        <mat-icon>{{ icon }}</mat-icon>
+              [matTooltip]="tooltip" (click)="onClick()" [attr.aria-label]="tooltip">
+        <mat-icon aria-hidden="true">{{ icon }}</mat-icon>
       </button>
 
       <button *ngSwitchCase="'mini-fab'" mat-mini-fab [color]="color" [disabled]="disabled"
-              [matTooltip]="tooltip" (click)="onClick()">
-        <mat-icon>{{ icon }}</mat-icon>
+              [matTooltip]="tooltip" (click)="onClick()" [attr.aria-label]="tooltip">
+        <mat-icon aria-hidden="true">{{ icon }}</mat-icon>
       </button>
     </ng-container>
   `

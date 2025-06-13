@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -34,10 +34,9 @@ export class AppComponent implements OnInit, OnDestroy {
   currentTheme: ThemeType = 'light';
   private themeSubscription?: Subscription;
 
-  constructor(
-    private themeService: ThemeService,
-    private themeObserver: ThemeObserver
-  ) {}
+  // Injected services using inject() function
+  private readonly themeService = inject(ThemeService);
+  private readonly themeObserver = inject(ThemeObserver);
 
   ngOnInit(): void {
     // Subscribe to theme changes using Observer pattern

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, OnDestroy, PLATFORM_ID, inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,7 +10,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { Observable, BehaviorSubject, Subject, combineLatest, of, EMPTY, Subscription } from 'rxjs';
+import { Observable, BehaviorSubject, Subject, combineLatest, of } from 'rxjs';
 import { map, switchMap, catchError, tap, startWith, shareReplay, takeUntil, finalize } from 'rxjs/operators';
 
 import { SystemService } from '../core/services/system.service';
@@ -57,14 +57,15 @@ export class DevComponent implements OnInit, OnDestroy {
   apiStatus$!: Observable<{ status: string; responseTime: number } | null>;
   isLoadingApi$!: Observable<boolean>;
 
-  constructor(
-    private systemService: SystemService,
-    private storageService: StorageService,
-    private themeService: ThemeService,
-    private themeObserver: ThemeObserver,
-    private snackBar: MatSnackBar,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {
+  // Injected services using inject() function
+  private readonly systemService = inject(SystemService);
+  private readonly storageService = inject(StorageService);
+  private readonly themeService = inject(ThemeService);
+  private readonly themeObserver = inject(ThemeObserver);
+  private readonly snackBar = inject(MatSnackBar);
+  private readonly platformId = inject(PLATFORM_ID);
+
+  constructor() {
     // Initialize observables in constructor
     this.initializeObservables();
   }
@@ -127,7 +128,7 @@ export class DevComponent implements OnInit, OnDestroy {
             this.showApiTestResult(isConnected, status);
             return status;
           }),
-          catchError(error => {
+          catchError(() => {
             this.showApiTestError();
             return of(null);
           }),
@@ -151,7 +152,7 @@ export class DevComponent implements OnInit, OnDestroy {
     });
   }
 
-  private showApiTestResult(isConnected: boolean, status: any): void {
+  private showApiTestResult(isConnected: boolean, status: { status: string; responseTime: number }): void {
     const message = isConnected
       ? `API is online (${status.responseTime.toFixed(2)}ms)`
       : 'API connection failed';
@@ -176,7 +177,7 @@ export class DevComponent implements OnInit, OnDestroy {
         duration: 2000,
         panelClass: ['success-snackbar']
       });
-    } catch (error) {
+    } catch {
       this.snackBar.open('Error clearing storage', 'Close', {
         duration: 3000,
         panelClass: ['error-snackbar']
@@ -189,7 +190,7 @@ export class DevComponent implements OnInit, OnDestroy {
       this.storageService.switchToLocalStorage();
       this.storageService.clear();
       this.snackBar.open('Local storage cleared', 'Close', { duration: 2000 });
-    } catch (error) {
+    } catch {
       this.snackBar.open('Error clearing local storage', 'Close', { duration: 3000 });
     }
   }
@@ -199,7 +200,7 @@ export class DevComponent implements OnInit, OnDestroy {
       this.storageService.switchToSessionStorage();
       this.storageService.clear();
       this.snackBar.open('Session storage cleared', 'Close', { duration: 2000 });
-    } catch (error) {
+    } catch {
       this.snackBar.open('Error clearing session storage', 'Close', { duration: 3000 });
     }
   }
@@ -227,5 +228,13 @@ export class DevComponent implements OnInit, OnDestroy {
     }
 
     return features;
+  }
+
+  /**
+   * TrackBy function for browser features ngFor loop
+   * Improves performance by tracking items by their value
+   */
+  trackByFeature(index: number, feature: string): string {
+    return feature;
   }
 }
