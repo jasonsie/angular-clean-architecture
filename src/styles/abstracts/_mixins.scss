@@ -1,0 +1,300 @@
+// =============================================================================
+// DESIGN SYSTEM MIXINS
+// =============================================================================
+// Following SOLID principles - Reusable patterns and behaviors
+
+@use 'sass:map';
+@use './variables' as *;
+@use './functions' as *;
+
+// Typography Mixins
+// ============================================================================
+
+/// Typography preset mixin
+/// @param {String} $size - Font size from scale
+/// @param {String} $weight [regular] - Font weight from scale
+/// @param {String} $line-height [normal] - Line height from scale
+/// @param {String} $family [primary] - Font family
+@mixin typography($size, $weight: regular, $line-height: normal, $family: primary) {
+  font-size: font-size($size);
+  font-weight: font-weight($weight);
+  line-height: line-height($line-height);
+
+  @if $family == primary {
+    font-family: $font-family-primary;
+  } @else if $family == mono {
+    font-family: $font-family-mono;
+  }
+}
+
+/// Heading preset mixins
+@mixin heading-1 {
+  @include typography(4xl, bold, tight);
+}
+
+@mixin heading-2 {
+  @include typography(3xl, semi-bold, tight);
+}
+
+@mixin heading-3 {
+  @include typography(2xl, semi-bold, snug);
+}
+
+@mixin heading-4 {
+  @include typography(xl, medium, snug);
+}
+
+@mixin heading-5 {
+  @include typography(lg, medium, normal);
+}
+
+@mixin heading-6 {
+  @include typography(base, medium, normal);
+}
+
+/// Body text presets
+@mixin body-large {
+  @include typography(lg, regular, relaxed);
+}
+
+@mixin body-base {
+  @include typography(base, regular, normal);
+}
+
+@mixin body-small {
+  @include typography(sm, regular, normal);
+}
+
+/// Caption and helper text
+@mixin caption {
+  @include typography(xs, regular, tight);
+}
+
+@mixin overline {
+  @include typography(xs, medium, tight);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+// Layout Mixins
+// ============================================================================
+
+/// Container with max-width and centering
+/// @param {Length} $max-width [1200px] - Maximum width
+/// @param {Length} $padding [spacing(4)] - Horizontal padding
+@mixin container($max-width: 1200px, $padding: spacing(4)) {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding-left: $padding;
+  padding-right: $padding;
+  width: 100%;
+}
+
+/// Flexbox utilities
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-column-center {
+  @include flex-column;
+  align-items: center;
+  justify-content: center;
+}
+
+/// Grid utilities
+/// @param {Number} $columns - Number of columns
+/// @param {Length} $gap [spacing(4)] - Grid gap
+/// @param {Length} $min-width [300px] - Minimum column width for auto-fit
+@mixin grid($columns: auto-fit, $gap: spacing(4), $min-width: 300px) {
+  display: grid;
+  gap: $gap;
+
+  @if $columns == auto-fit {
+    grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
+  } @else {
+    grid-template-columns: repeat($columns, 1fr);
+  }
+}
+
+// Visual Effects Mixins
+// ============================================================================
+
+/// Apply elevation shadow
+/// @param {Number} $level - Elevation level (0-5)
+@mixin elevation($level) {
+  box-shadow: elevation($level);
+}
+
+/// Smooth transitions
+/// @param {String} $property [all] - CSS property to animate
+/// @param {String} $duration [base] - Duration from scale
+/// @param {String} $easing [ease-out] - Easing from scale
+@mixin transition($property: all, $duration: base, $easing: ease-out) {
+  transition: $property transition-duration($duration) transition-easing($easing);
+}
+
+/// Focus styles
+@mixin focus-ring($color: color(primary, 500), $width: 2px, $offset: 2px) {
+  outline: $width solid transparent;
+  outline-offset: $offset;
+
+  &:focus-visible {
+    outline-color: $color;
+  }
+}
+
+/// Hover effects
+@mixin hover-lift($elevation-from: 1, $elevation-to: 3) {
+  @include transition(box-shadow);
+  @include elevation($elevation-from);
+
+  &:hover {
+    @include elevation($elevation-to);
+  }
+}
+
+// Responsive Mixins
+// ============================================================================
+
+/// Media query helper
+/// @param {String} $breakpoint - Breakpoint name
+/// @param {String} $direction [up] - Direction (up or down)
+@mixin media($breakpoint, $direction: up) {
+  $breakpoint-value: breakpoint($breakpoint);
+
+  @if $direction == up {
+    @media (min-width: $breakpoint-value) {
+      @content;
+    }
+  } @else if $direction == down {
+    @media (max-width: calc(#{$breakpoint-value} - 1px)) {
+      @content;
+    }
+  }
+}
+
+/// Responsive typography
+/// @param {Map} $sizes - Map of breakpoint: size pairs
+@mixin responsive-typography($sizes) {
+  @each $breakpoint, $size in $sizes {
+    @if $breakpoint == base {
+      font-size: font-size($size);
+    } @else {
+      @include media($breakpoint) {
+        font-size: font-size($size);
+      }
+    }
+  }
+}
+
+// Component State Mixins
+// ============================================================================
+
+/// Button states
+@mixin button-states($background-color, $text-color: #ffffff) {
+  background-color: $background-color;
+  color: $text-color;
+  border: none;
+
+  &:hover:not(:disabled) {
+    background-color: darken($background-color, 8%);
+  }
+
+  &:active:not(:disabled) {
+    background-color: darken($background-color, 12%);
+  }
+
+  &:disabled {
+    background-color: semantic-color(surface, disabled);
+    color: semantic-color(text, disabled);
+    cursor: not-allowed;
+  }
+}
+
+/// Input states
+@mixin input-states($border-color: semantic-color(border, medium)) {
+  border: 1px solid $border-color;
+
+  &:hover:not(:disabled) {
+    border-color: darken($border-color, 20%);
+  }
+
+  &:focus:not(:disabled) {
+    border-color: color(primary, 500);
+    @include focus-ring(color(primary, 500));
+  }
+
+  &:disabled {
+    background-color: semantic-color(surface, disabled);
+    border-color: semantic-color(border, light);
+    color: semantic-color(text, disabled);
+    cursor: not-allowed;
+  }
+}
+
+// Utility Mixins
+// ============================================================================
+
+/// Visually hide element (accessibility)
+@mixin visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/// Truncate text with ellipsis
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/// Multiline text truncation
+/// @param {Number} $lines - Number of lines to show
+@mixin text-truncate-multiline($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/// Reset list styles
+@mixin list-reset {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/// Reset button styles
+@mixin button-reset {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+
+  &:focus {
+    outline: none;
+  }
+}

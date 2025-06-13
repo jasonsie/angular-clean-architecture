@@ -1,0 +1,9 @@
+// =============================================================================
+// ABSTRACTS INDEX
+// =============================================================================
+// Central export file for all abstract utilities
+// Following SOLID principles - Interface Segregation
+
+@forward 'variables';
+@forward 'functions';
+@forward 'mixins';

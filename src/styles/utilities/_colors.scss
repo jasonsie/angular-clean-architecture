@@ -1,0 +1,61 @@
+@use "../abstracts" as *;
+
+// Essential color utilities
+.text-primary {
+  color: semantic-color(text, primary) !important;
+}
+.text-secondary {
+  color: semantic-color(text, secondary) !important;
+}
+.text-disabled {
+  color: semantic-color(text, disabled) !important;
+}
+.text-hint {
+  color: semantic-color(text, hint) !important;
+}
+.text-success {
+  color: color(success, 600) !important;
+}
+.text-error {
+  color: color(error, 600) !important;
+}
+.text-warning {
+  color: color(warning, 600) !important;
+}
+.text-info {
+  color: color(info, 600) !important;
+}
+
+// Background color utilities
+.bg-primary {
+  background: color(primary, 500) !important;
+}
+.bg-surface {
+  background: semantic-color(surface, primary) !important;
+}
+.bg-surface-secondary {
+  background: semantic-color(surface, secondary) !important;
+}
+.bg-success {
+  background: color(success, 500) !important;
+}
+.bg-error {
+  background: color(error, 500) !important;
+}
+.bg-warning {
+  background: color(warning, 500) !important;
+}
+.bg-info {
+  background: color(info, 500) !important;
+}
+
+// Border color utilities
+.border-light {
+  border-color: semantic-color(border, light) !important;
+}
+.border-medium {
+  border-color: semantic-color(border, medium) !important;
+}
+.border-heavy {
+  border-color: semantic-color(border, heavy) !important;
+}

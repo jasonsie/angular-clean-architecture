@@ -1,0 +1,206 @@
+<div class="date-container">
+  <!-- Header Section -->
+  <mat-card class="header-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>date_range</mat-icon>
+        Date Laboratory
+      </mat-card-title>
+      <mat-card-subtitle>
+        Explore date functionality with Material UI and advanced date operations
+      </mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+
+  <div class="cards-grid">
+    <!-- Current Date Information -->
+    <mat-card class="info-card">
+      <mat-card-header>
+        <mat-card-title>Current Date Information</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="date-info-list">
+          <div class="date-info-item">
+            <strong>Current Date:</strong>
+            <span>{{ currentDate | date:'shortDate' }}</span>
+          </div>
+          <mat-divider></mat-divider>
+
+          <div class="date-info-item">
+            <strong>Current Time:</strong>
+            <span>{{ currentDate | date:'HH:mm:ss' }}</span>
+          </div>
+          <mat-divider></mat-divider>
+
+          <div class="date-info-item">
+            <strong>Full DateTime:</strong>
+            <span>{{ currentDate | date:'full' }}</span>
+          </div>
+          <mat-divider></mat-divider>
+
+          <div class="date-info-item">
+            <strong>ISO String:</strong>
+            <span class="iso-string">{{ currentDate.toISOString() }}</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Date Picker and Format Selector -->
+    <mat-card class="picker-card">
+      <mat-card-header>
+        <mat-card-title>Date Selection</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <mat-form-field class="full-width">
+          <mat-label>Select Date</mat-label>
+          <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate">
+          <mat-hint>Choose a date to work with</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>Display Format</mat-label>
+          <mat-select [(ngModel)]="selectedFormat">
+            <mat-option *ngFor="let format of formatOptions" [value]="format.value">
+              {{ format.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="setToSelectedDate()">
+          <mat-icon>event</mat-icon>
+          Use Selected Date
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+    <!-- Date Calculator -->
+    <mat-card class="calculator-card">
+      <mat-card-header>
+        <mat-card-title>Date Calculator</mat-card-title>
+        <mat-card-subtitle>Perform date arithmetic operations</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="current-working-date">
+          <h4>Working Date:</h4>
+          <mat-chip-set>
+            <mat-chip color="primary">{{ formattedWorkingDate }}</mat-chip>
+            <mat-chip [color]="isWorkingDateWeekend ? 'accent' : 'primary'">
+              {{ isWorkingDateWeekend ? 'Weekend' : 'Weekday' }}
+            </mat-chip>
+          </mat-chip-set>
+        </div>
+
+        <mat-form-field class="days-input">
+          <mat-label>Days to Add/Subtract</mat-label>
+          <input matInput type="number" [(ngModel)]="daysToAdd" min="1">
+        </mat-form-field>
+      </mat-card-content>
+
+      <mat-card-actions class="calculator-actions">
+        <button mat-button color="primary" (click)="addDays()">
+          <mat-icon>add</mat-icon>
+          Add Days
+        </button>
+        <button mat-button color="primary" (click)="subtractDays()">
+          <mat-icon>remove</mat-icon>
+          Subtract Days
+        </button>
+        <button mat-button color="primary" (click)="addMonths()">
+          <mat-icon>skip_next</mat-icon>
+          +1 Month
+        </button>
+        <button mat-button color="primary" (click)="addYears()">
+          <mat-icon>fast_forward</mat-icon>
+          +1 Year
+        </button>
+        <button mat-stroked-button (click)="resetDate()">
+          <mat-icon>restore</mat-icon>
+          Reset
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+    <!-- Date Analysis -->
+    <mat-card class="analysis-card">
+      <mat-card-header>
+        <mat-card-title>Date Analysis</mat-card-title>
+        <mat-card-subtitle>Analyze the working date</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="analysis-grid">
+          <div class="analysis-item">
+            <strong>Relative to Now:</strong>
+            <span>{{ relativeWorkingDate }}</span>
+          </div>
+
+          <div class="analysis-item">
+            <strong>Duration from Now:</strong>
+            <span>{{ durationFromNow }}</span>
+          </div>
+
+          <div class="analysis-item">
+            <strong>Day Type:</strong>
+            <mat-chip [color]="isWorkingDateBusinessDay ? 'primary' : 'accent'">
+              {{ isWorkingDateBusinessDay ? 'Business Day' : 'Non-Business Day' }}
+            </mat-chip>
+          </div>
+
+          <div class="analysis-item">
+            <strong>Comparison Date:</strong>
+            <span>{{ comparisonDate | date:'shortDate' }}</span>
+          </div>
+
+          <div class="analysis-item">
+            <strong>Duration from Comparison:</strong>
+            <span>{{ durationFromComparison }}</span>
+          </div>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-button (click)="copyWorkingDate()">
+          <mat-icon>content_copy</mat-icon>
+          Copy Date
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+    <!-- Date Formats Display -->
+    <mat-card class="formats-card">
+      <mat-card-header>
+        <mat-card-title>Date Formats</mat-card-title>
+        <mat-card-subtitle>Working date in different formats</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="formats-list">
+          <div class="format-item" *ngFor="let format of formatOptions">
+            <span class="format-label">{{ format.label }}:</span>
+            <span class="format-value">{{ dateService.formatDate(workingDate, format.value) }}</span>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <div class="format-item">
+            <span class="format-label">ISO String:</span>
+            <span class="format-value iso-string">{{ workingDate.toISOString() }}</span>
+          </div>
+
+          <div class="format-item">
+            <span class="format-label">Timestamp:</span>
+            <span class="format-value">{{ workingDate.getTime() }}</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

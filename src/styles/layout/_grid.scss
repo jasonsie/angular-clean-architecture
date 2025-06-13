@@ -1,0 +1,223 @@
+// =============================================================================
+// LAYOUT GRID SYSTEM
+// =============================================================================
+// Flexible grid system with CSS Grid and Flexbox
+
+@use '../abstracts' as *;
+
+// CSS Grid System
+// ============================================================================
+
+.grid {
+  @include grid();
+
+  // Grid variations
+  &--1 { @include grid(1); }
+  &--2 { @include grid(2); }
+  &--3 { @include grid(3); }
+  &--4 { @include grid(4); }
+  &--5 { @include grid(5); }
+  &--6 { @include grid(6); }
+  &--12 { @include grid(12); }
+
+  // Responsive grids
+  &--responsive-2 {
+    @include grid(1);
+
+    @include media(sm) {
+      @include grid(2);
+    }
+  }
+
+  &--responsive-3 {
+    @include grid(1);
+
+    @include media(sm) {
+      @include grid(2);
+    }
+
+    @include media(md) {
+      @include grid(3);
+    }
+  }
+
+  &--responsive-4 {
+    @include grid(1);
+
+    @include media(sm) {
+      @include grid(2);
+    }
+
+    @include media(lg) {
+      @include grid(4);
+    }
+  }
+
+  // Auto-fit with different minimum widths
+  &--auto-250 { @include grid(auto-fit, spacing(4), 250px); }
+  &--auto-300 { @include grid(auto-fit, spacing(4), 300px); }
+  &--auto-350 { @include grid(auto-fit, spacing(4), 350px); }
+  &--auto-400 { @include grid(auto-fit, spacing(4), 400px); }
+
+  // Gap variations
+  &--gap-sm { gap: spacing(2); }
+  &--gap-md { gap: spacing(4); }
+  &--gap-lg { gap: spacing(6); }
+  &--gap-xl { gap: spacing(8); }
+}
+
+// Grid item utilities
+// ============================================================================
+
+.grid-item {
+  // Column span utilities
+  &--span-2 { grid-column: span 2; }
+  &--span-3 { grid-column: span 3; }
+  &--span-4 { grid-column: span 4; }
+  &--span-5 { grid-column: span 5; }
+  &--span-6 { grid-column: span 6; }
+  &--span-full { grid-column: 1 / -1; }
+
+  // Row span utilities
+  &--row-span-2 { grid-row: span 2; }
+  &--row-span-3 { grid-row: span 3; }
+  &--row-span-4 { grid-row: span 4; }
+
+  // Start/end positions
+  &--start-2 { grid-column-start: 2; }
+  &--start-3 { grid-column-start: 3; }
+  &--start-4 { grid-column-start: 4; }
+
+  &--end-2 { grid-column-end: 2; }
+  &--end-3 { grid-column-end: 3; }
+  &--end-4 { grid-column-end: 4; }
+}
+
+// Flexbox System
+// ============================================================================
+
+.flex {
+  display: flex;
+
+  // Direction
+  &--row { flex-direction: row; }
+  &--row-reverse { flex-direction: row-reverse; }
+  &--col { flex-direction: column; }
+  &--col-reverse { flex-direction: column-reverse; }
+
+  // Wrap
+  &--wrap { flex-wrap: wrap; }
+  &--nowrap { flex-wrap: nowrap; }
+  &--wrap-reverse { flex-wrap: wrap-reverse; }
+
+  // Justify content
+  &--justify-start { justify-content: flex-start; }
+  &--justify-end { justify-content: flex-end; }
+  &--justify-center { justify-content: center; }
+  &--justify-between { justify-content: space-between; }
+  &--justify-around { justify-content: space-around; }
+  &--justify-evenly { justify-content: space-evenly; }
+
+  // Align items
+  &--items-start { align-items: flex-start; }
+  &--items-end { align-items: flex-end; }
+  &--items-center { align-items: center; }
+  &--items-baseline { align-items: baseline; }
+  &--items-stretch { align-items: stretch; }
+
+  // Align content
+  &--content-start { align-content: flex-start; }
+  &--content-end { align-content: flex-end; }
+  &--content-center { align-content: center; }
+  &--content-between { align-content: space-between; }
+  &--content-around { align-content: space-around; }
+  &--content-evenly { align-content: space-evenly; }
+
+  // Common patterns
+  &--center {
+    @include flex-center;
+  }
+
+  &--between {
+    @include flex-between;
+  }
+
+  &--column-center {
+    @include flex-column-center;
+  }
+}
+
+// Flex item utilities
+// ============================================================================
+
+.flex-item {
+  // Flex grow/shrink
+  &--grow { flex-grow: 1; }
+  &--grow-0 { flex-grow: 0; }
+  &--shrink { flex-shrink: 1; }
+  &--shrink-0 { flex-shrink: 0; }
+
+  // Flex basis
+  &--auto { flex: auto; }
+  &--initial { flex: initial; }
+  &--none { flex: none; }
+  &--1 { flex: 1; }
+
+  // Align self
+  &--self-auto { align-self: auto; }
+  &--self-start { align-self: flex-start; }
+  &--self-end { align-self: flex-end; }
+  &--self-center { align-self: center; }
+  &--self-baseline { align-self: baseline; }
+  &--self-stretch { align-self: stretch; }
+}
+
+// Responsive utilities
+// ============================================================================
+
+// Hide/show utilities
+.hidden {
+  display: none !important;
+}
+
+.visible {
+  display: block !important;
+}
+
+// Responsive visibility
+@include media(xs, down) {
+  .hidden-xs { display: none !important; }
+  .visible-xs { display: block !important; }
+}
+
+@include media(sm, down) {
+  .hidden-sm-down { display: none !important; }
+}
+
+@include media(sm) {
+  .hidden-sm { display: none !important; }
+  .visible-sm { display: block !important; }
+}
+
+@include media(md, down) {
+  .hidden-md-down { display: none !important; }
+}
+
+@include media(md) {
+  .hidden-md { display: none !important; }
+  .visible-md { display: block !important; }
+}
+
+@include media(lg, down) {
+  .hidden-lg-down { display: none !important; }
+}
+
+@include media(lg) {
+  .hidden-lg { display: none !important; }
+  .visible-lg { display: block !important; }
+}
+
+@include media(xl) {
+  .hidden-xl { display: none !important; }
+  .visible-xl { display: block !important; }
+}

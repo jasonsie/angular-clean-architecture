@@ -1,0 +1,366 @@
+// =============================================================================
+// CUSTOM COMPONENT STYLES
+// =============================================================================
+// Reusable component patterns following BEM methodology
+
+@use '../abstracts' as *;
+
+// Page header component
+// ============================================================================
+
+.page-header {
+  padding: spacing(6) 0;
+  border-bottom: 1px solid var(--color-border-light);
+  margin-bottom: spacing(6);
+
+  &__container {
+    @include container();
+    @include flex-between;
+    gap: spacing(4);
+
+    @include media(md, down) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  &__content {
+    flex: 1;
+  }
+
+  &__title {
+    @include heading-2;
+    margin-bottom: spacing(2);
+  }
+
+  &__subtitle {
+    @include body-large;
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  &__actions {
+    @include flex-center;
+    gap: spacing(3);
+
+    @include media(md, down) {
+      width: 100%;
+      justify-content: flex-start;
+    }
+  }
+
+  // Variants
+  &--hero {
+    padding: spacing(12) 0;
+    text-align: center;
+
+    .page-header__container {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .page-header__title {
+      @include heading-1;
+      margin-bottom: spacing(4);
+    }
+  }
+
+  &--compact {
+    padding: spacing(4) 0;
+    margin-bottom: spacing(4);
+  }
+}
+
+// Card grid component
+// ============================================================================
+
+.card-grid {
+  @include grid(auto-fit, spacing(6), 320px);
+
+  &__item {
+    height: fit-content;
+  }
+
+  // Variants
+  &--dense {
+    gap: spacing(4);
+  }
+
+  &--sparse {
+    gap: spacing(8);
+  }
+
+  &--2-col {
+    @include grid(2, spacing(6));
+
+    @include media(md, down) {
+      @include grid(1, spacing(4));
+    }
+  }
+
+  &--3-col {
+    @include grid(3, spacing(6));
+
+    @include media(lg, down) {
+      @include grid(2, spacing(4));
+    }
+
+    @include media(md, down) {
+      @include grid(1, spacing(4));
+    }
+  }
+}
+
+// Status badge component
+// ============================================================================
+
+.status-badge {
+  @include typography(xs, medium);
+  padding: spacing(1) spacing(3);
+  border-radius: border-radius(full);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: spacing(1);
+
+  // Status variants
+  &--success {
+    background-color: var(--color-success-light);
+    color: var(--color-success-dark);
+  }
+
+  &--warning {
+    background-color: var(--color-warning-light);
+    color: var(--color-warning-dark);
+  }
+
+  &--error {
+    background-color: var(--color-error-light);
+    color: var(--color-error-dark);
+  }
+
+  &--info {
+    background-color: var(--color-info-light);
+    color: var(--color-info-dark);
+  }
+
+  &--neutral {
+    background-color: var(--color-gray-100);
+    color: var(--color-gray-700);
+  }
+
+  // Size variants
+  &--sm {
+    @include typography(xs, medium);
+    padding: spacing(1) spacing(2);
+  }
+
+  &--lg {
+    @include typography(sm, medium);
+    padding: spacing(2) spacing(4);
+  }
+
+  // With icon
+  &__icon {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+// Loading component
+// ============================================================================
+
+.loading {
+  @include flex-column-center;
+  padding: spacing(8);
+
+  &__spinner {
+    margin-bottom: spacing(4);
+  }
+
+  &__text {
+    @include typography(base, regular);
+    color: var(--color-text-secondary);
+  }
+
+  // Variants
+  &--inline {
+    @include flex-center;
+    padding: spacing(4);
+    gap: spacing(3);
+
+    .loading__spinner {
+      margin-bottom: 0;
+    }
+  }
+
+  &--overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: z-index(overlay);
+
+    .dark-theme & {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+  }
+}
+
+// Empty state component
+// ============================================================================
+
+.empty-state {
+  @include flex-column-center;
+  padding: spacing(12) spacing(4);
+  text-align: center;
+
+  &__icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: spacing(4);
+    opacity: 0.5;
+  }
+
+  &__title {
+    @include heading-4;
+    margin-bottom: spacing(2);
+    color: var(--color-text-primary);
+  }
+
+  &__description {
+    @include body-base;
+    color: var(--color-text-secondary);
+    margin-bottom: spacing(6);
+    max-width: 400px;
+  }
+
+  &__actions {
+    @include flex-center;
+    gap: spacing(3);
+  }
+
+  // Variants
+  &--compact {
+    padding: spacing(8) spacing(4);
+
+    .empty-state__icon {
+      width: 48px;
+      height: 48px;
+    }
+
+    .empty-state__title {
+      @include heading-5;
+    }
+  }
+}
+
+// Alert component
+// ============================================================================
+
+.alert {
+  padding: spacing(4);
+  border-radius: border-radius(md);
+  border-left: 4px solid;
+  @include flex-center;
+  gap: spacing(3);
+  margin-bottom: spacing(4);
+
+  &__icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+  }
+
+  &__content {
+    flex: 1;
+  }
+
+  &__title {
+    @include typography(base, medium);
+    margin-bottom: spacing(1);
+  }
+
+  &__description {
+    @include typography(sm, regular);
+    margin: 0;
+  }
+
+  &__close {
+    @include button-reset;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    @include flex-center;
+    border-radius: border-radius(base);
+    @include transition(background-color);
+
+    &:hover {
+      background-color: var(--color-hover-overlay);
+    }
+  }
+
+  // Status variants
+  &--success {
+    background-color: var(--color-success-light);
+    border-color: var(--color-success);
+    color: var(--color-success-dark);
+  }
+
+  &--warning {
+    background-color: var(--color-warning-light);
+    border-color: var(--color-warning);
+    color: var(--color-warning-dark);
+  }
+
+  &--error {
+    background-color: var(--color-error-light);
+    border-color: var(--color-error);
+    color: var(--color-error-dark);
+  }
+
+  &--info {
+    background-color: var(--color-info-light);
+    border-color: var(--color-info);
+    color: var(--color-info-dark);
+  }
+}
+
+// Breadcrumb component
+// ============================================================================
+
+.breadcrumb {
+  @include flex-center;
+  gap: spacing(2);
+  margin-bottom: spacing(4);
+
+  &__item {
+    @include typography(sm, regular);
+    color: var(--color-text-secondary);
+    @include flex-center;
+    gap: spacing(2);
+
+    &:last-child {
+      color: var(--color-text-primary);
+      font-weight: font-weight(medium);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      @include transition(color);
+
+      &:hover {
+        color: var(--color-primary-600);
+      }
+    }
+  }
+
+  &__separator {
+    color: var(--color-text-hint);
+    font-size: font-size(xs);
+  }
+}

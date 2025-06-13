@@ -1,0 +1,223 @@
+// =============================================================================
+// DESIGN SYSTEM FUNCTIONS
+// =============================================================================
+// Following SOLID principles - Single Responsibility for utility functions
+
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:string';
+@use './variables' as *;
+
+// Color Functions
+// ============================================================================
+
+/// Get color from the color palette
+/// @param {String} $color-name - Name of the color
+/// @param {Number} $shade [500] - Shade of the color
+/// @return {Color}
+@function color($color-name, $shade: 500) {
+  $color-map: map.get($colors, $color-name);
+
+  @if not $color-map {
+    @error 'Color `#{$color-name}` not found in color palette.';
+  }
+
+  $color-value: map.get($color-map, $shade);
+
+  @if not $color-value {
+    @error 'Shade `#{$shade}` not found for color `#{$color-name}`.';
+  }
+
+  @return $color-value;
+}
+
+/// Get semantic color
+/// @param {String} $category - Category (text, surface, border)
+/// @param {String} $variant - Variant within category
+/// @return {Color}
+@function semantic-color($category, $variant) {
+  $category-map: map.get($semantic-colors, $category);
+
+  @if not $category-map {
+    @error 'Semantic color category `#{$category}` not found.';
+  }
+
+  $color-value: map.get($category-map, $variant);
+
+  @if not $color-value {
+    @error 'Semantic color variant `#{$variant}` not found in category `#{$category}`.';
+  }
+
+  @return $color-value;
+}
+
+// Spacing Functions
+// ============================================================================
+
+/// Get spacing value from scale
+/// @param {Number} $multiplier - Multiplier from spacing scale
+/// @return {Length}
+@function spacing($multiplier) {
+  $value: map.get($spacing-scale, $multiplier);
+
+  @if not $value {
+    @error 'Spacing multiplier `#{$multiplier}` not found in spacing scale.';
+  }
+
+  @return $value;
+}
+
+// Typography Functions
+// ============================================================================
+
+/// Get font size from scale
+/// @param {String} $size - Size name from font-sizes map
+/// @return {Length}
+@function font-size($size) {
+  $value: map.get($font-sizes, $size);
+
+  @if not $value {
+    @error 'Font size `#{$size}` not found in font-sizes scale.';
+  }
+
+  @return $value;
+}
+
+/// Get font weight from scale
+/// @param {String} $weight - Weight name from font-weights map
+/// @return {Number}
+@function font-weight($weight) {
+  $value: map.get($font-weights, $weight);
+
+  @if not $value {
+    @error 'Font weight `#{$weight}` not found in font-weights scale.';
+  }
+
+  @return $value;
+}
+
+/// Get line height from scale
+/// @param {String} $height - Height name from line-heights map
+/// @return {Number}
+@function line-height($height) {
+  $value: map.get($line-heights, $height);
+
+  @if not $value {
+    @error 'Line height `#{$height}` not found in line-heights scale.';
+  }
+
+  @return $value;
+}
+
+// Border Radius Functions
+// ============================================================================
+
+/// Get border radius from scale
+/// @param {String} $radius - Radius name from border-radius map
+/// @return {Length}
+@function border-radius($radius) {
+  $value: map.get($border-radius, $radius);
+
+  @if not $value {
+    @error 'Border radius `#{$radius}` not found in border-radius scale.';
+  }
+
+  @return $value;
+}
+
+// Elevation Functions
+// ============================================================================
+
+/// Get elevation shadow from scale
+/// @param {Number} $level - Elevation level (0-5)
+/// @return {String}
+@function elevation($level) {
+  $value: map.get($elevations, $level);
+
+  @if not $value {
+    @error 'Elevation level `#{$level}` not found in elevations scale.';
+  }
+
+  @return $value;
+}
+
+// Transition Functions
+// ============================================================================
+
+/// Get transition duration
+/// @param {String} $speed - Speed name (fast, base, slow)
+/// @return {Time}
+@function transition-duration($speed) {
+  $durations: map.get($transitions, duration);
+  $value: map.get($durations, $speed);
+
+  @if not $value {
+    @error 'Transition duration `#{$speed}` not found.';
+  }
+
+  @return $value;
+}
+
+/// Get transition easing
+/// @param {String} $easing - Easing name
+/// @return {String}
+@function transition-easing($easing) {
+  $easings: map.get($transitions, easing);
+  $value: map.get($easings, $easing);
+
+  @if not $value {
+    @error 'Transition easing `#{$easing}` not found.';
+  }
+
+  @return $value;
+}
+
+// Breakpoint Functions
+// ============================================================================
+
+/// Get breakpoint value
+/// @param {String} $breakpoint - Breakpoint name
+/// @return {Length}
+@function breakpoint($breakpoint) {
+  $value: map.get($breakpoints, $breakpoint);
+
+  @if not $value {
+    @error 'Breakpoint `#{$breakpoint}` not found in breakpoints map.';
+  }
+
+  @return $value;
+}
+
+// Z-index Functions
+// ============================================================================
+
+/// Get z-index value
+/// @param {String} $layer - Layer name
+/// @return {Number}
+@function z-index($layer) {
+  $value: map.get($z-index, $layer);
+
+  @if not $value {
+    @error 'Z-index layer `#{$layer}` not found in z-index scale.';
+  }
+
+  @return $value;
+}
+
+// Utility Functions
+// ============================================================================
+
+/// Convert pixels to rem units
+/// @param {Number} $pixels - Pixel value
+/// @param {Number} $base-font-size [16px] - Base font size
+/// @return {Length}
+@function px-to-rem($pixels, $base-font-size: 16px) {
+  @return math.div($pixels, $base-font-size) * 1rem;
+}
+
+/// Strip unit from value
+/// @param {Number} $value - Value with unit
+/// @return {Number}
+@function strip-unit($value) {
+  @return math.div($value, $value * 0 + 1);
+}

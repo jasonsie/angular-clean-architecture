@@ -1,0 +1,79 @@
+<div class="pipe-container">
+  <h2>Pipe Laboratory</h2>
+  <p>Explore Angular built-in and custom pipes</p>
+
+  <div class="pipe-section">
+    <h3>Built-in Pipes</h3>
+    <div class="pipe-demos">
+      <div class="demo-item">
+        <label>Uppercase:</label>
+        <span>{{ sampleText | uppercase }}</span>
+      </div>
+      <div class="demo-item">
+        <label>Lowercase:</label>
+        <span>{{ sampleText | lowercase }}</span>
+      </div>
+      <div class="demo-item">
+        <label>Titlecase:</label>
+        <span>{{ sampleText | titlecase }}</span>
+      </div>
+      <div class="demo-item">
+        <label>Currency:</label>
+        <span>{{ sampleNumber | currency }}</span>
+      </div>
+      <div class="demo-item">
+        <label>Percent:</label>
+        <span>{{ samplePercent | percent }}</span>
+      </div>
+      <div class="demo-item">
+        <label>Decimal:</label>
+        <span>{{ sampleNumber | number:'1.2-4' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="pipe-section">
+    <h3>JSON and Slice Pipes</h3>
+    <div class="demo-item">
+      <label>JSON Pipe:</label>
+      <pre>{{ sampleObject | json }}</pre>
+    </div>
+    <div class="demo-item">
+      <label>Slice Pipe (first 3):</label>
+      <span>{{ sampleArray | slice:0:3 | json }}</span>
+    </div>
+    <div class="demo-item">
+      <label>Slice Pipe (last 2):</label>
+      <span>{{ sampleArray | slice:-2 | json }}</span>
+    </div>
+  </div>
+
+  <div class="pipe-section">
+    <h3>Interactive Pipe Demo</h3>
+    <div class="input-section">
+      <input
+        type="text"
+        [(ngModel)]="userInput"
+        placeholder="Enter text to transform..."
+        class="text-input">
+    </div>
+    <div class="transform-results">
+      <div class="transform-item">
+        <span class="transform-label">Original:</span>
+        <span>{{ userInput }}</span>
+      </div>
+      <div class="transform-item">
+        <span class="transform-label">Uppercase:</span>
+        <span>{{ userInput | uppercase }}</span>
+      </div>
+      <div class="transform-item">
+        <span class="transform-label">Lowercase:</span>
+        <span>{{ userInput | lowercase }}</span>
+      </div>
+      <div class="transform-item">
+        <span class="transform-label">Reversed:</span>
+        <span>{{ userInput | slice:0 | json }}</span>
+      </div>
+    </div>
+  </div>
+</div>

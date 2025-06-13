@@ -1,0 +1,126 @@
+// =============================================================================
+// LAYOUT CONTAINER STYLES
+// =============================================================================
+// Reusable container patterns following SOLID principles
+
+@use '../abstracts' as *;
+
+// Base container class
+// ============================================================================
+
+.container {
+  @include container();
+
+  // Responsive containers
+  &--sm {
+    @include container(640px);
+  }
+
+  &--md {
+    @include container(768px);
+  }
+
+  &--lg {
+    @include container(1024px);
+  }
+
+  &--xl {
+    @include container(1280px);
+  }
+
+  &--2xl {
+    @include container(1536px);
+  }
+
+  // Fluid container (no max-width)
+  &--fluid {
+    @include container(none);
+  }
+}
+
+// Layout wrapper for full-height applications
+// ============================================================================
+
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    flex-shrink: 0;
+    z-index: z-index(sticky);
+  }
+
+  &__main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__footer {
+    flex-shrink: 0;
+    margin-top: auto;
+  }
+
+  // Sidebar layout variant
+  &--sidebar {
+    flex-direction: row;
+
+    .layout__sidebar {
+      flex-shrink: 0;
+      width: 250px;
+      background-color: var(--color-surface);
+      border-right: 1px solid var(--color-border-light);
+
+      @include media(md, down) {
+        display: none;
+
+        &.is-open {
+          display: block;
+          position: fixed;
+          top: 0;
+          left: 0;
+          height: 100vh;
+          z-index: z-index(overlay);
+          box-shadow: var(--elevation-4);
+        }
+      }
+    }
+
+    .layout__content {
+      flex: 1;
+      overflow: hidden;
+    }
+  }
+}
+
+// Section spacing
+// ============================================================================
+
+.section {
+  padding: spacing(8) 0;
+
+  &--sm {
+    padding: spacing(4) 0;
+  }
+
+  &--md {
+    padding: spacing(6) 0;
+  }
+
+  &--lg {
+    padding: spacing(12) 0;
+  }
+
+  &--xl {
+    padding: spacing(16) 0;
+  }
+
+  &--hero {
+    padding: spacing(20) 0;
+
+    @include media(md, down) {
+      padding: spacing(12) 0;
+    }
+  }
+}

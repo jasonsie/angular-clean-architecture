@@ -1,0 +1,304 @@
+// =============================================================================
+// BASE TYPOGRAPHY STYLES
+// =============================================================================
+// Typography system implementation with semantic heading hierarchy
+
+@use '../abstracts' as *;
+
+// Heading hierarchy
+// ============================================================================
+
+h1, .h1 {
+  @include heading-1;
+  margin-bottom: spacing(6);
+
+  @include media(md) {
+    @include responsive-typography((
+      base: 5xl,
+      md: 6xl
+    ));
+  }
+}
+
+h2, .h2 {
+  @include heading-2;
+  margin-bottom: spacing(5);
+
+  @include media(md) {
+    @include responsive-typography((
+      base: 3xl,
+      md: 4xl
+    ));
+  }
+}
+
+h3, .h3 {
+  @include heading-3;
+  margin-bottom: spacing(4);
+
+  @include media(md) {
+    @include responsive-typography((
+      base: 2xl,
+      md: 3xl
+    ));
+  }
+}
+
+h4, .h4 {
+  @include heading-4;
+  margin-bottom: spacing(3);
+}
+
+h5, .h5 {
+  @include heading-5;
+  margin-bottom: spacing(3);
+}
+
+h6, .h6 {
+  @include heading-6;
+  margin-bottom: spacing(2);
+}
+
+// Body text
+// ============================================================================
+
+p {
+  @include body-base;
+  margin-bottom: spacing(4);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &.lead {
+    @include body-large;
+    color: semantic-color(text, secondary);
+  }
+
+  &.small {
+    @include body-small;
+  }
+}
+
+// Links
+// ============================================================================
+
+a {
+  color: color(primary, 600);
+  text-decoration: none;
+  @include transition(color);
+
+  &:hover {
+    color: color(primary, 700);
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    @include focus-ring(color(primary, 500));
+  }
+
+  &:visited {
+    color: color(primary, 800);
+  }
+}
+
+// Lists
+// ============================================================================
+
+ul, ol {
+  margin-bottom: spacing(4);
+  padding-left: spacing(6);
+
+  li {
+    @include body-base;
+    margin-bottom: spacing(2);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  // Nested lists
+  ul, ol {
+    margin-top: spacing(2);
+    margin-bottom: spacing(2);
+  }
+}
+
+// Definition lists
+dl {
+  margin-bottom: spacing(4);
+
+  dt {
+    @include typography(base, medium);
+    margin-bottom: spacing(1);
+  }
+
+  dd {
+    @include body-base;
+    margin-bottom: spacing(3);
+    margin-left: spacing(4);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Code and preformatted text
+// ============================================================================
+
+code {
+  font-family: $font-family-mono;
+  font-size: 0.875em;
+  background-color: color(gray, 100);
+  padding: spacing(1) spacing(2);
+  border-radius: border-radius(base);
+  border: 1px solid color(gray, 200);
+}
+
+pre {
+  font-family: $font-family-mono;
+  background-color: color(gray, 50);
+  padding: spacing(4);
+  border-radius: border-radius(md);
+  border: 1px solid color(gray, 200);
+  overflow-x: auto;
+  margin-bottom: spacing(4);
+
+  code {
+    background: none;
+    padding: 0;
+    border: none;
+    font-size: inherit;
+  }
+}
+
+// Blockquotes
+// ============================================================================
+
+blockquote {
+  border-left: 4px solid color(primary, 500);
+  padding-left: spacing(4);
+  margin: spacing(6) 0;
+  font-style: italic;
+  color: semantic-color(text, secondary);
+
+  p {
+    margin-bottom: spacing(2);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  cite {
+    @include body-small;
+    color: semantic-color(text, hint);
+    font-style: normal;
+
+    &::before {
+      content: '— ';
+    }
+  }
+}
+
+// Horizontal rule
+// ============================================================================
+
+hr {
+  border: none;
+  height: 1px;
+  background-color: semantic-color(border, light);
+  margin: spacing(8) 0;
+}
+
+// Text utility classes
+// ============================================================================
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-lowercase {
+  text-transform: lowercase;
+}
+
+.text-capitalize {
+  text-transform: capitalize;
+}
+
+// Text colors
+.text-primary {
+  color: color(primary, 600);
+}
+
+.text-secondary {
+  color: semantic-color(text, secondary);
+}
+
+.text-muted {
+  color: semantic-color(text, hint);
+}
+
+.text-success {
+  color: color(success, 600);
+}
+
+.text-warning {
+  color: color(warning, 600);
+}
+
+.text-error {
+  color: color(error, 600);
+}
+
+.text-info {
+  color: color(info, 600);
+}
+
+// Font weights
+.font-light {
+  font-weight: font-weight(light);
+}
+
+.font-regular {
+  font-weight: font-weight(regular);
+}
+
+.font-medium {
+  font-weight: font-weight(medium);
+}
+
+.font-semibold {
+  font-weight: font-weight(semi-bold);
+}
+
+.font-bold {
+  font-weight: font-weight(bold);
+}
+
+// Text truncation utilities
+.truncate {
+  @include text-truncate;
+}
+
+.truncate-2 {
+  @include text-truncate-multiline(2);
+}
+
+.truncate-3 {
+  @include text-truncate-multiline(3);
+}

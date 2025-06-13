@@ -1,59 +1,160 @@
-# AngularApp
+# Angular 19 SSR Application
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.3.
+This Angular 19 application is built with Server-Side Rendering (SSR) support and uses standalone components. It includes multiple environment configurations and a structured routing system.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- **Angular 19** with latest features
+- **Server-Side Rendering (SSR)** enabled
+- **Standalone Components** architecture
+- **Multiple Environments** (d1, s1, p1)
+- **Structured Routing System**
 
-```bash
-ng serve
-```
+## Environment Configurations
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+The application supports three custom environments plus the default development and production environments:
 
-## Code scaffolding
+### Environment Details
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+| Environment | Production | API URL | Logging | Description |
+|-------------|------------|---------|---------|-------------|
+| `development` | false | `http://localhost:3000/api` | true | Local development |
+| `d1` | false | `https://d1-api.example.com/api` | true | Development environment 1 |
+| `s1` | false | `https://s1-api.example.com/api` | false | Staging environment 1 |
+| `p1` | true | `https://p1-api.example.com/api` | false | Production environment 1 |
+| `production` | true | Default production config | false | Default production |
 
-```bash
-ng generate component component-name
-```
+## Routing System
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+The application includes the following routes:
 
-```bash
-ng generate --help
-```
+- `/dev` - Development dashboard with environment information
+- `/lab/date` - Date laboratory for exploring Angular date pipes and functionality
+- `/lab/pipe` - Pipe laboratory for exploring Angular built-in and custom pipes
 
-## Building
+## Development Scripts
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### Starting the Development Server
 
 ```bash
-ng test
+# Default development environment
+npm start
+
+# Start with specific environments
+npm run start:d1    # Development environment 1
+npm run start:s1    # Staging environment 1
+npm run start:p1    # Production environment 1 (use with caution)
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+### Building the Application
 
 ```bash
-ng e2e
+# Default production build
+npm run build
+
+# Build with specific environments
+npm run build:d1    # Build for d1 environment
+npm run build:s1    # Build for s1 environment
+npm run build:p1    # Build for p1 environment
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### Running Tests
 
-## Additional Resources
+```bash
+npm run test
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### SSR Development
+
+```bash
+# Build for SSR
+npm run build
+
+# Serve the SSR application
+npm run serve:ssr:angular-app
+```
+
+## Component Structure
+
+### Dev Component (`/dev`)
+- Displays current environment configuration
+- Shows development tools and system information
+- Interactive buttons for testing API, clearing storage, and theme toggling
+
+### Date Component (`/lab/date`)
+- Demonstrates Angular date pipes
+- Interactive date calculator
+- Various date formatting examples
+- Real-time date transformations
+
+### Pipe Component (`/lab/pipe`)
+- Showcases built-in Angular pipes (uppercase, lowercase, currency, etc.)
+- Interactive text transformation
+- JSON and slice pipe demonstrations
+- Live pipe examples with user input
+
+## Environment File Structure
+
+```
+src/environments/
+├── environment.ts          # Default environment
+├── environment.d1.ts       # Development environment 1
+├── environment.s1.ts       # Staging environment 1
+└── environment.p1.ts       # Production environment 1
+```
+
+## Angular.json Configuration
+
+The `angular.json` file is configured with:
+- Build configurations for all environments
+- Serve configurations for each environment
+- File replacement strategies for environment-specific builds
+- Optimization settings per environment
+
+## Getting Started
+
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Start development server:**
+   ```bash
+   npm start
+   # or for specific environment
+   npm run start:d1
+   ```
+
+3. **Navigate to the application:**
+   Open your browser to `http://localhost:4200`
+
+4. **Explore the routes:**
+   - Visit `/dev` for environment dashboard
+   - Visit `/lab/date` for date functionality
+   - Visit `/lab/pipe` for pipe demonstrations
+
+## Technology Stack
+
+- **Angular 19** - Latest Angular framework
+- **TypeScript** - Type-safe development
+- **Angular SSR** - Server-side rendering
+- **Standalone Components** - Modern Angular architecture
+- **Angular Router** - Declarative routing
+- **Angular Forms** - Reactive and template-driven forms
+- **Angular Common** - Built-in pipes and directives
+
+## Browser Support
+
+This application supports all modern browsers that are supported by Angular 19.
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test across different environments
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.
