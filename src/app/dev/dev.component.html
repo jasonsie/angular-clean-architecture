@@ -110,6 +110,34 @@
       </mat-card-actions>
     </mat-card>
 
+    <!-- Navigation Section -->
+    <mat-card class="tool-card">
+      <mat-card-header>
+        <mat-card-title>Application Navigation</mat-card-title>
+        <mat-card-subtitle>Navigate to different sections of the application</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p>Explore the board application with Material Design layout</p>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-raised-button
+                color="primary"
+                routerLink="/board"
+                aria-label="Navigate to board section">
+          <mat-icon aria-hidden="true">dashboard</mat-icon>
+          Open Board
+        </button>
+        <button mat-button
+                routerLink="/lab"
+                aria-label="Navigate to lab section">
+          <mat-icon aria-hidden="true">science</mat-icon>
+          Lab Tools
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
     <!-- System Information Section -->
     <mat-card class="system-info-card">
       <mat-card-header>

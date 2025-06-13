@@ -1,0 +1,86 @@
+<mat-sidenav-container class="layout-container">
+  <!-- Sidebar -->
+  <mat-sidenav
+    #sidenav
+    [mode]="sidenavMode()"
+    [opened]="isSidenavOpen()"
+    class="layout-sidenav">
+
+    <!-- Sidebar Header -->
+    <div class="sidenav-header">
+      <h2 class="sidenav-title">Board Menu</h2>
+    </div>
+
+    <!-- Navigation Menu -->
+    <mat-nav-list class="sidenav-nav">
+      <mat-list-item routerLink="/board/dashboard" routerLinkActive="active-link" (click)="closeSidenav()">
+        <mat-icon matListItemIcon>dashboard</mat-icon>
+        <span matListItemTitle>Dashboard</span>
+      </mat-list-item>
+
+      <mat-list-item routerLink="/board/projects" routerLinkActive="active-link" (click)="closeSidenav()">
+        <mat-icon matListItemIcon>folder</mat-icon>
+        <span matListItemTitle>Projects</span>
+      </mat-list-item>
+
+      <mat-list-item routerLink="/board/tasks" routerLinkActive="active-link" (click)="closeSidenav()">
+        <mat-icon matListItemIcon>task</mat-icon>
+        <span matListItemTitle>Tasks</span>
+      </mat-list-item>
+
+      <mat-list-item routerLink="/board/analytics" routerLinkActive="active-link" (click)="closeSidenav()">
+        <mat-icon matListItemIcon>analytics</mat-icon>
+        <span matListItemTitle>Analytics</span>
+      </mat-list-item>
+
+      <mat-list-item routerLink="/board/settings" routerLinkActive="active-link" (click)="closeSidenav()">
+        <mat-icon matListItemIcon>settings</mat-icon>
+        <span matListItemTitle>Settings</span>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- Main Content Area -->
+  <mat-sidenav-content class="layout-content">
+    <!-- Header/Toolbar -->
+    <mat-toolbar color="primary" class="layout-header">
+      <button
+        mat-icon-button
+        (click)="toggleSidenav()"
+        aria-label="Toggle sidenav"
+        class="menu-button">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <span class="toolbar-title">Board Application</span>
+
+      <span class="toolbar-spacer"></span>
+
+      <!-- Header Actions -->
+      <button mat-icon-button aria-label="Notifications">
+        <mat-icon>notifications</mat-icon>
+      </button>
+
+      <button mat-icon-button aria-label="User Profile">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+
+    <!-- Footer -->
+    <footer class="layout-footer">
+      <div class="footer-content">
+        <span>&copy; 2025 Board Application. All rights reserved.</span>
+        <div class="footer-links">
+          <a href="#" class="footer-link">Privacy</a>
+          <a href="#" class="footer-link">Terms</a>
+          <a href="#" class="footer-link">Support</a>
+        </div>
+      </div>
+    </footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

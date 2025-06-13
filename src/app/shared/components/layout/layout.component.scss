@@ -1,0 +1,217 @@
+// Layout Component Styles
+// Following Angular Material Design principles
+
+.layout-container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+// Sidenav Styles
+.layout-sidenav {
+  width: 280px;
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+  background-color: var(--mat-sidenav-container-background-color, #fafafa);
+
+  .sidenav-header {
+    padding: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+
+    .sidenav-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 500;
+    }
+  }
+
+  .sidenav-nav {
+    padding-top: 8px;
+
+    .mat-mdc-list-item {
+      --mdc-list-list-item-leading-icon-color: rgba(0, 0, 0, 0.54);
+      --mdc-list-list-item-label-text-color: rgba(0, 0, 0, 0.87);
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+
+      &.active-link {
+        background-color: rgba(63, 81, 181, 0.12);
+        --mdc-list-list-item-leading-icon-color: #3f51b5;
+        --mdc-list-list-item-label-text-color: #3f51b5;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+// Main Content Area
+.layout-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+// Header/Toolbar Styles
+.layout-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .menu-button {
+    margin-right: 16px;
+  }
+
+  .toolbar-title {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  .toolbar-spacer {
+    flex: 1 1 auto;
+  }
+
+  .mat-mdc-icon-button {
+    margin-left: 8px;
+  }
+}
+
+// Main Content Styles
+.main-content {
+  flex: 1;
+  padding: 24px;
+  background-color: #f5f5f5;
+  min-height: calc(100vh - 64px - 60px); // viewport - header - footer
+  overflow-y: auto;
+}
+
+// Footer Styles
+.layout-footer {
+  background-color: #ffffff;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 16px 24px;
+  margin-top: auto;
+
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.6);
+
+    .footer-links {
+      display: flex;
+      gap: 16px;
+
+      .footer-link {
+        color: rgba(0, 0, 0, 0.6);
+        text-decoration: none;
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: #3f51b5;
+        }
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .layout-sidenav {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .main-content {
+    padding: 16px;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+
+    .footer-links {
+      justify-content: center;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 12px;
+  }
+
+  .layout-header {
+    .toolbar-title {
+      font-size: 18px;
+    }
+  }
+}
+
+// Dark theme support
+@media (prefers-color-scheme: dark) {
+  .layout-sidenav {
+    background-color: #303030;
+    border-right-color: rgba(255, 255, 255, 0.12);
+
+    .sidenav-header {
+      border-bottom-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .sidenav-nav {
+      .mat-mdc-list-item {
+        --mdc-list-list-item-leading-icon-color: rgba(255, 255, 255, 0.7);
+        --mdc-list-list-item-label-text-color: rgba(255, 255, 255, 0.87);
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.04);
+        }
+      }
+    }
+  }
+
+  .main-content {
+    background-color: #121212;
+  }
+
+  .layout-footer {
+    background-color: #1e1e1e;
+    border-top-color: rgba(255, 255, 255, 0.12);
+
+    .footer-content {
+      color: rgba(255, 255, 255, 0.7);
+
+      .footer-link {
+        color: rgba(255, 255, 255, 0.7);
+
+        &:hover {
+          color: #3f51b5;
+        }
+      }
+    }
+  }
+}
+
+// Animation for smooth transitions
+.layout-sidenav,
+.main-content {
+  transition: margin 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+// Focus styles for accessibility
+.mat-mdc-list-item:focus,
+.mat-mdc-icon-button:focus {
+  outline: 2px solid #3f51b5;
+  outline-offset: 2px;
+}
